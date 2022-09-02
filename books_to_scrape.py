@@ -18,4 +18,5 @@ for page in range(1, 51):
             price = book.select(".price_color")[0].getText()
             star_Three_books.append(f"{title}. Price: {price[1:]}")
 
-print(star_Three_books)
+for i in star_Three_books:
+    print(i)
