@@ -8,7 +8,7 @@ import lxml
 star_Three_books = []
 html_base = "http://books.toscrape.com/catalogue/page-{}.html"
 
-for page in range(1, 2):
+for page in range(1, 51):
     res = requests.get(html_base.format(page))
     soup = bs4.BeautifulSoup(res.text, 'lxml')
     books = soup.select(".product_pod")
