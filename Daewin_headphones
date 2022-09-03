@@ -1,0 +1,22 @@
+#price(<=1000) and model of headphones
+
+import requests
+import bs4
+import re
+
+basic_html = "https://darwin.md/akustika/casti/fara-fir?ff%5B394%5D%5B%5D=f%C4%83r%C4%83%20fir&page={}"
+headphones_required = []
+
+for page in range(1, 20):
+    res = requests.get(basic_html.format(page))
+    soup = bs4.BeautifulSoup(res.text, "lxml")
+    headphonesInfo = soup.select(".card.card-product.border-0")
+    for headphones in headphonesInfo:
+        model = headphones.select("a")[0]["title"]
+        price = headphones.select(".price-new")[0].getText()
+        int_price =  int(re.findall("\d.?\d+", price)[0].replace(" ", "")) # price without lei and white space
+        if(int_price <= 1000):
+            headphones_required.append(f"Molde: {model}. Price: {price}")
+
+for i in headphones_required:
+    print(i)
